@@ -44,8 +44,32 @@ namespace Console_Berek2020
 
             // 6. feladat
 
+            Console.WriteLine("A legtöbbet kereső dolgozó a megadott részlegen");
 
+            if (berek.Any(x => x.Reszleg == reszlegNeve))
+            {
+                var maxBer = berek.OrderByDescending(x => x.Fizetes).Where(x => x.Reszleg == reszlegNeve).First();
+                Console.WriteLine($"\tNév: {maxBer.Nev}");
+                Console.WriteLine($"\tNeme: {maxBer.Neme}");
+                Console.WriteLine($"\tBelépés éve: {maxBer.BelepesEve}");
+                Console.WriteLine($"\tBér: {maxBer.Fizetes}");
 
+            }
+            else
+            {
+                Console.WriteLine("A megadott részleg nem létezik a cégnél!");
+            }
+
+            // 7. feladat
+
+            Console.WriteLine("7. feladat: Statisztika: ");
+
+            Dictionary<string, int> statisztika = berek.GroupBy(x => x.Reszleg).ToDictionary(x => x.Key, x => x.Count());
+
+            foreach (var item in statisztika)
+            {
+                Console.WriteLine($"\t {item.Key} - {item.Value} fő");
+            }
         }
     }
 }
